@@ -1,0 +1,387 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <script>
+        (() => {
+            const preferredLang = localStorage.getItem("language") || "en";
+            document.documentElement.lang = preferredLang;
+        })();
+    </script>
+    <style>
+        body {
+            visibility: hidden;
+            opacity: 0;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unique & Rare Baby Names - Naamin</title>
+    <meta name="description" content="Discover exclusive, rare, and unique baby names with deep meanings." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <link rel="stylesheet" href="style.css?v=ui-20260330f">
+    <link rel="stylesheet" href="unique-names.css">
+    <link rel="stylesheet" href="more-unified.css?v=ui-20260330c">
+
+    <link rel="stylesheet" href="poster-styles.css?v=ui-20260330d">
+</head>
+
+<body data-theme="light" class="more-unified-ui">
+
+    <nav class="navbar">
+        <!-- Logo -->
+        <div class="logo">Naam<span class="logo-in">in</span></div>
+
+        <!-- Desktop Navigation Links -->
+        <ul class="nav-links desktop-only">
+            <li><a href="index.html" data-en="Home" data-hi="Home">Home</a></li>
+            <li><a href="about.html" data-en="About" data-hi="About">About</a></li>
+            <li><a href="parents-mix.html" data-en="Parents to Child" data-hi="Parents to Child">Parents to Child</a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-en="More" data-hi="More">
+                    More<span class="arrow">▼</span>
+                </a>
+
+                <ul class="dropdown-menu">
+                    <li><a href="popular-names.html" data-en="Popular Names" data-hi="Popular Names">Popular Names</a>
+                    </li>
+                    <li><a href="unique-names.html" class="active" data-en="Unique Names" data-hi="Unique Names">Unique
+                            Names</a></li>
+                    <li><a href="famous-personalities.html" data-en="Famous Personalities"
+                            data-hi="Famous Personalities">Famous Personalities</a></li>
+                    <li><a href="more/motto-for-everything/index.html" data-en="Motto Creator"
+                            data-hi="Motto Creator">Motto Creator</a></li>
+                    <li><a href="more/zodiac-finder/index.html" data-en="Zodiac Finder" data-hi="Zodiac Finder">Zodiac
+                            Finder</a></li>
+                    <li><a href="product.html" data-en="Our Products" data-hi="Our Products">Our Products</a></li>
+
+
+
+                    <li><a href="services.html" data-en="Services" data-hi="Services">Services</a></li>
+                    <li><a href="careers.html" data-en="Careers" data-hi="Careers">Careers</a></li>
+                    <li><a href="blog.html" data-en="Blog" data-hi="Blog">Blog</a></li>
+                    <li><a href="contact.html" data-en="Contact" data-hi="Contact">Contact</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- Desktop Actions -->
+        <div class="nav-actions desktop-only">
+            <button id="language-toggle" class="btn btn-login btn-lang" title="Toggle language">ENG/HIN</button>
+            <button id="fav-view-btn" class="btn btn-fav" title="Wishlist">
+                <i class="fas fa-heart"></i>
+                <span id="fav-count">0</span>
+            </button>
+            <a href="login.html" class="btn btn-login">Log in</a>
+            <a href="signup.html" class="btn btn-signup">Sign up</a>
+        </div>
+
+        <!-- Hamburger Icon (Mobile Only) -->
+        <button class="hamburger-menu mobile-only" id="hamburger-menu" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="mobile-menu" id="mobile-menu">
+            <ul class="mobile-nav-links">
+                <li><a href="index.html" data-en="Home" data-hi="Home">Home</a></li>
+                <li><a href="about.html" data-en="About" data-hi="About">About</a></li>
+                <li><a href="parents-mix.html" data-en="Parents to Child" data-hi="Parents to Child">Parents to
+                        Child</a></li>
+
+                <!-- Mobile Dropdown -->
+                <li class="mobile-dropdown">
+                    <a href="#" class="mobile-dropdown-toggle" data-en="More" data-hi="More">More<span
+                            class="arrow">▼</span></a>
+                    <ul class="mobile-dropdown-menu">
+                        <li><a href="popular-names.html" data-en="Popular Names" data-hi="Popular Names">Popular
+                                Names</a></li>
+                        <li><a href="unique-names.html" class="active" data-en="Unique Names"
+                                data-hi="Unique Names">Unique Names</a></li>
+                        <li><a href="famous-personalities.html" data-en="Famous Personalities"
+                                data-hi="Famous Personalities">Famous Personalities</a></li>
+                        <li><a href="more/motto-for-everything/index.html" data-en="Motto Creator"
+                                data-hi="Motto Creator">Motto Creator</a></li>
+                        <li><a href="more/zodiac-finder/index.html" data-en="Zodiac Finder"
+                                data-hi="Zodiac Finder">Zodiac Finder</a></li>
+                        <li><a href="product.html" data-en="Our Products" data-hi="Our Products">Our Products</a></li>
+
+                        <li><a href="services.html" data-en="Services" data-hi="Services">Services</a></li>
+                        <li><a href="careers.html" data-en="Careers" data-hi="Careers">Careers</a></li>
+                        <li><a href="blog.html" data-en="Blog" data-hi="Blog">Blog</a></li>
+                        <li><a href="contact.html" data-en="Contact" data-hi="Contact">Contact</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Mobile Actions -->
+            <div class="mobile-actions">
+                <button id="language-toggle-mobile" class="btn mobile-btn">ENG/HIN</button>
+                <button id="fav-view-btn-mobile" class="btn btn-fav mobile-btn">
+                    <i class="fas fa-heart"></i>
+                    <span id="fav-count-mobile">0</span>
+                </button>
+                <a href="login.html" class="btn btn-login mobile-btn">Log in</a>
+                <a href="signup.html" class="btn btn-signup mobile-btn">Sign up</a>
+            </div>
+        </div>
+    </nav>
+
+    <main id="unique-names-page">
+        <section class="hero-section">
+            <h1 class="page-title" data-en="Discover Exclusive Gems" data-hi="Discover Exclusive Gems">Discover Exclusive Gems
+            </h1>
+            <p class="page-subtitle"
+                data-en="A curated collection of rare, modern, and deeply meaningful names that stand apart from the crowd."
+                data-hi="A curated collection of rare, modern, and deeply meaningful names that stand apart from the crowd.">A curated
+                collection of rare, modern, and deeply meaningful names that stand apart
+                from the crowd.</p>
+        </section>
+
+        <section class="filters-section">
+            <div class="filters-container">
+                <!-- Gender Filter -->
+                <div class="filter-group">
+                    <label class="filter-label" data-en="Gender" data-hi="Gender">Gender</label>
+                    <div class="filter-pills">
+                        <button class="filter-pill active" data-filter="gender" data-value="all" data-en="All"
+                            data-hi="All">All</button>
+                        <button class="filter-pill" data-filter="gender" data-value="male">
+                            <i class="fas fa-mars"></i> <span data-en="Male" data-hi="Male">Male</span>
+                        </button>
+                        <button class="filter-pill" data-filter="gender" data-value="female">
+                            <i class="fas fa-venus"></i> <span data-en="Female" data-hi="Female">Female</span>
+                        </button>
+
+                    </div>
+                </div>
+
+                <!-- Letter Filter -->
+                <div class="filter-group">
+                    <label class="filter-label" data-en="Choose by Letter" data-hi="Choose by Letter">Choose by Letter</label>
+                    <select class="filter-select" id="letter-filter">
+                        <option value="all" data-en="All Letters" data-hi="All Letters">All Letters</option>
+                        <option value="a">A</option>
+                        <option value="b">B</option>
+                        <option value="c">C</option>
+                        <option value="d">D</option>
+                        <option value="e">E</option>
+                        <option value="f">F</option>
+                        <option value="g">G</option>
+                        <option value="h">H</option>
+                        <option value="i">I</option>
+                        <option value="j">J</option>
+                        <option value="k">K</option>
+                        <option value="l">L</option>
+                        <option value="m">M</option>
+                        <option value="n">N</option>
+                        <option value="o">O</option>
+                        <option value="p">P</option>
+                        <option value="q">Q</option>
+                        <option value="r">R</option>
+                        <option value="s">S</option>
+                        <option value="t">T</option>
+                        <option value="u">U</option>
+                        <option value="v">V</option>
+                        <option value="w">W</option>
+                        <option value="x">X</option>
+                        <option value="y">Y</option>
+                        <option value="z">Z</option>
+                    </select>
+                </div>
+
+                <div class="results-info" style="margin-left: auto;">
+                    <span id="showing-count">0</span> <span data-en="Curated Names" data-hi="Curated Names">Curated
+                        Names</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="names-section">
+            <div class="names-grid" id="names-grid">
+                <!-- Names will be populated by JavaScript -->
+            </div>
+        </section>
+
+        <section class="name-details-container" style="display:none;">
+            <div class="content-wrapper">
+                <button class="back-btn" data-en="&larr; Back to List" data-hi="&larr; Back to List">&larr;
+                    Back</button>
+                <div class="name-details"
+                    style="background: white; padding: 40px; border-radius: 20px; box-shadow: var(--card-shadow-premium); margin-top: 20px;">
+                    <!-- Details populated by script.js showDetails -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-grid">
+            <div>
+                <h3 data-en="Quick Links" data-hi="Quick Links">Quick Links</h3><a href="index.html" data-en="Home"
+                    data-hi="Home">Home</a><a href="about.html" data-en="About" data-hi="About">About</a><a
+                    href="services.html" data-en="Services" data-hi="Services">Services</a><a href="contact.html"
+                    data-en="Contact" data-hi="Contact">Contact</a>
+            </div>
+            <div>
+                <h3 data-en="Our Services" data-hi="Our Services">Our Services</h3><a href="services.html#consultation"
+                    data-en="Name Consultation" data-hi="Name Consultation">Name Consultation</a><a href="services.html#vedic"
+                    data-en="Vedic Guidance" data-hi="Vedic Guidance">Vedic Guidance</a><a href="services.html#posters"
+                    data-en="Our Products" data-hi="Our Products">Our Products</a>
+            </div>
+            <div>
+                <h3 data-en="Follow Us" data-hi="Follow Us">Follow Us</h3>
+                <p><a href="https://www.linkedin.com/company/naamin/" target="_blank" rel="noopener">LinkedIn</a></p>
+                <p><a href="#" target="_blank" rel="noopener">Instagram</a></p>
+                <p><a href="#" target="_blank" rel="noopener">Facebook</a></p>
+            </div>
+            <div>
+                <h3 data-en="Contact" data-hi="Contact">Contact</h3>
+                <p><a href="tel:+919413678955">+91 94136 78955</a></p>
+                <p><a href="mailto:naamin.com@gmail.com">naamin.com@gmail.com</a></p>
+                <p data-en="Hyderabad, Telangana, India" data-hi="Hyderabad, Telangana, India">Hyderabad, Telangana, India
+                </p>
+            </div>
+        </div>
+        <p class="copyrights" data-en="© 2025 Naamin. All rights reserved."
+            data-hi="© 2025 Naamin. All rights reserved.">© 2025 Naamin. All rights reserved.</p>
+    </footer>
+
+    <!-- Favorites Overlay (Needed for sidebar functionality) -->
+    <div id="fav-overlay" class="fav-overlay" style="display: none;">
+        <div class="fav-modal">
+            <div class="fav-header">
+                <h3 data-en="Your Shortlist" data-hi="Your Shortlist">Your Shortlist</h3>
+                <button id="close-fav-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="fav-body" id="fav-list-container">
+                <p style="text-align:center; color:#999;">No names saved yet.</p>
+            </div>
+            <div class="fav-footer">
+                <button id="clear-fav-btn">Clear All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Poster Generator Template (Copied from index.html for consistency) -->
+    <div id="poster-generator-container" aria-hidden="true">
+        <div id="poster-card" class="premium-variant">
+            <!-- Decorative and watermark icons -->
+            <div class="p-seal">&#10003;</div>
+
+            <!-- TOP BRANDING SECTION -->
+            <div class="p-header">
+                <h1 class="p-brand-name">NAAMIN</h1>
+                <div class="p-subtitle">NAMING SOLUTIONS</div>
+            </div>
+
+            <!-- HERO NAME SECTION -->
+            <div class="p-hero-section">
+                <h2 class="p-name-en" id="poster-name-en">NAME</h2>
+                <div class="p-name-hi" id="poster-name-hi">नाम</div>
+                <div class="p-meaning" id="poster-meaning">Meaning placeholder</div>
+            </div>
+
+            <!-- IDENTITY ROW (Grid with Icons) -->
+            <div class="p-identity-row">
+                <div class="p-identity-item">
+                    <i class="fas fa-venus-mars p-identity-icon"></i>
+                    <span class="p-identity-text" id="poster-gender">BOY</span>
+                </div>
+                <div class="p-identity-item">
+                    <i class="fas fa-book p-identity-icon"></i>
+                    <span class="p-identity-text" id="poster-origin">SANSKRIT</span>
+                </div>
+                <div class="p-identity-item">
+                    <i class="fas fa-star p-identity-icon"></i>
+                    <span class="p-identity-text" id="poster-nakshatra">ASHWANI</span>
+                </div>
+                <div class="p-identity-item">
+                    <i class="fas fa-moon p-identity-icon"></i>
+                    <span class="p-identity-text" id="poster-rashi">ARIES</span>
+                </div>
+            </div>
+
+            <!-- NUMEROLOGY SECTION -->
+            <div class="p-soft-panel">
+                <div class="p-panel-title">NUMEROLOGY</div>
+                <div class="p-numerology-content">
+                    Number <strong id="poster-number">3</strong> &nbsp;|&nbsp;
+                    Planet <strong id="poster-planet">Jupiter</strong> &nbsp;|&nbsp;
+                    Color <strong id="poster-color">Yellow</strong>
+                </div>
+            </div>
+
+            <!-- PREDICTION SECTION -->
+            <div class="p-prediction-section">
+                <div class="p-prediction-title"><span id="poster-year">2026</span> PREDICTION</div>
+                <div class="p-prediction-text" id="poster-prediction">
+                    Career growth will be steady through discipline. Rewards follow patience. Real estate investments
+                    look favorable.
+                </div>
+            </div>
+
+            <!-- FOOTER SECTION -->
+            <div class="p-footer">
+                <div class="p-quote">"A name is the first gift you give your child."</div>
+                <a href="https://naamin.com" class="p-cta">WWW.NAAMIN.COM</a>
+            </div>
+        </div>
+    </div>
+
+    <button id="scrollToTopBtn" class="scroll-to-top-btn" aria-label="Scroll to top"><i
+            class="fas fa-arrow-up"></i></button>
+
+    <a href="https://wa.me/9413678955?text=Hello" class="whatsapp-float" target="_blank">
+        <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
+    </a>
+
+    <script src="script.js?v=perf-20260331v" defer></script>
+    <script src="hindi-transliterate.js"></script>
+    <script src="unique-names.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="navbar-auth.js?v=navauth-20260330a"></script>
+    <script>
+        // Inline dropdown fix removed to prevent conflict with script.js
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
