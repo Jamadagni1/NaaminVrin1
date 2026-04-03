@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile | Naamin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css?v=ui-20260330f">
+  <style>
+    .profile-shell {
+      width: min(760px, calc(100% - 32px));
+      margin: 120px auto 48px;
+      padding: 36px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 18px 42px rgba(31, 27, 46, 0.1);
+      border: 1px solid rgba(31, 27, 46, 0.08);
+    }
+
+    .profile-shell h1 {
+      margin-bottom: 10px;
+    }
+
+    .profile-shell p {
+      margin-bottom: 0;
+    }
+
+    .profile-meta {
+      display: grid;
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .profile-card {
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: #f8f6ff;
+      border: 1px solid rgba(108, 43, 217, 0.12);
+    }
+
+    .profile-card strong {
+      display: block;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .profile-status {
+      margin-top: 18px;
+      min-height: 22px;
+      color: #b91c1c;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1024px) {
+      .navbar .desktop-only {
+        display: flex !important;
+      }
+
+      .navbar .nav-links.desktop-only {
+        flex: 1;
+        min-width: 0;
+        gap: 6px;
+        overflow-x: auto;
+        white-space: nowrap;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .navbar .nav-links.desktop-only::-webkit-scrollbar {
+        display: none;
+      }
+
+      .navbar .nav-links.desktop-only li {
+        flex: 0 0 auto;
+      }
+
+      .navbar .nav-actions.desktop-only .btn {
+        padding: 7px 10px;
+      }
+
+      .profile-shell {
+        width: calc(100% - 24px);
+        margin: 100px auto 32px;
+        padding: 28px 20px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .navbar .nav-actions.desktop-only a {
+        display: none;
+      }
+
+      .profile-shell {
+        margin-top: 92px;
+        padding: 22px 16px;
+        border-radius: 18px;
+      }
+
+      .profile-actions {
+        flex-direction: column;
+      }
+
+      .profile-actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">Naam<span class="logo-in">in</span></div>
+    <ul class="nav-links desktop-only">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="parents-mix.html">Parents to Child</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle">More<span class="arrow">▼</span></a>
+        <ul class="dropdown-menu">
+          <li><a href="popular-names.html">Popular Names</a></li>
+          <li><a href="unique-names.html">Unique Names</a></li>
+          <li><a href="famous-personalities.html">Famous Personalities</a></li>
+          <li><a href="more/motto-for-everything/index.html">Motto Creator</a></li>
+          <li><a href="more/zodiac-finder/index.html">Zodiac Finder</a></li>
+          <li><a href="product.html">Our Products</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </li>
+    </ul>
+    <div class="nav-actions desktop-only">
+      <a href="login.html" class="btn btn-login">Log in</a>
+      <a href="signup.html" class="btn btn-signup">Sign up</a>
+    </div>
+  </nav>
+
+  <main class="profile-shell">
+    <h1>My Profile</h1>
+    <p>Account details synced from your current Naamin login.</p>
+
+    <div class="profile-meta">
+      <div class="profile-card">
+        <strong>Full name</strong>
+        <span id="profile-name">Loading...</span>
+      </div>
+      <div class="profile-card">
+        <strong>Email</strong>
+        <span id="profile-email">Loading...</span>
+      </div>
+      <div class="profile-card">
+        <strong>Role</strong>
+        <span id="profile-role">Loading...</span>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <a href="index.html" class="btn btn-login">Back to Home</a>
+      <button id="profile-signout-btn" class="btn btn-signup" type="button">Sign out</button>
+    </div>
+    <p id="profile-status" class="profile-status" role="alert" aria-live="polite"></p>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3 data-en="Quick Links" data-hi="Quick Links">Quick Links</h3><a href="index.html" data-en="Home"
+          data-hi="Home">Home</a><a href="about.html" data-en="About" data-hi="About">About</a><a
+          href="services.html" data-en="Services" data-hi="Services">Services</a><a href="contact.html" data-en="Contact"
+          data-hi="Contact">Contact</a>
+      </div>
+      <div>
+        <h3 data-en="Our Services" data-hi="Our Services">Our Services</h3><a href="services.html#consultation" data-en="Name Consultation"
+          data-hi="Name Consultation">Name Consultation</a><a href="services.html#vedic" data-en="Vedic Guidance"
+          data-hi="Vedic Guidance">Vedic Guidance</a><a href="services.html#posters" data-en="Our Products"
+          data-hi="Our Products">Our Products</a>
+      </div>
+      <div>
+        <h3 data-en="Follow Us" data-hi="Follow Us">Follow Us</h3>
+        <p><a href="https://www.linkedin.com/company/naamin/" target="_blank" rel="noopener">LinkedIn</a></p>
+        <p><a href="#" target="_blank" rel="noopener">Instagram</a></p>
+        <p><a href="#" target="_blank" rel="noopener">Facebook</a></p>
+      </div>
+      <div>
+        <h3 data-en="Contact" data-hi="Contact">Contact</h3>
+        <p><a href="tel:+919413678955">+91 94136 78955</a></p>
+        <p><a href="mailto:naamin.com@gmail.com">naamin.com@gmail.com</a></p>
+        <p data-en="Hyderabad, Telangana, India" data-hi="Hyderabad, Telangana, India">Hyderabad, Telangana, India</p>
+      </div>
+    </div>
+    <p class="copyrights" data-en="© 2025 Naamin. All rights reserved."
+      data-hi="© 2025 Naamin. All rights reserved.">© 2025 Naamin. All rights reserved.</p>
+  </footer>
+
+  <a href="https://wa.me/9413678955?text=Hello" class="whatsapp-float" target="_blank" rel="noopener">
+    <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
+  </a>
+
+  <button id="scrollToTopBtn" class="scroll-to-top-btn" aria-label="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script>
+    (function () {
+      const btn = document.getElementById('scrollToTopBtn');
+      if (!btn) return;
+      const toggle = () => btn.classList.toggle('show', window.scrollY > 240);
+      window.addEventListener('scroll', toggle, { passive: true });
+      toggle();
+      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    })();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module">
+    import { isSupabaseConfigured, supabase } from "./supabase-config.js";
+
+    const statusEl = document.getElementById("profile-status");
+    const nameEl = document.getElementById("profile-name");
+    const emailEl = document.getElementById("profile-email");
+    const roleEl = document.getElementById("profile-role");
+    const signOutBtn = document.getElementById("profile-signout-btn");
+
+    const setStatus = (message = "") => {
+      statusEl.textContent = message;
+    };
+
+    if (!isSupabaseConfigured()) {
+      setStatus("Supabase config is missing.");
+    } else {
+      const { data, error } = await supabase.auth.getSession();
+      const user = data?.session?.user || null;
+
+      if (error || !user) {
+        window.location.href = "login.html";
+      } else {
+        nameEl.textContent = user.user_metadata?.full_name || "Not provided";
+        emailEl.textContent = user.email || "Not available";
+        roleEl.textContent = user.user_metadata?.role || "user";
+      }
+    }
+
+    signOutBtn.addEventListener("click", async () => {
+      if (supabase?.auth) {
+        await supabase.auth.signOut({ scope: "local" });
+      }
+      window.location.href = "index.html";
+    });
+  </script>
+  <script type="module" src="navbar-auth.js?v=navauth-20260330a"></script>
+  <script src="navbar_fix.js?v=capture_fix"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

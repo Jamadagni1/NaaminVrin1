@@ -1,0 +1,266 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Wishlist | Naamin</title>
+  <link rel="stylesheet" href="style.css?v=ui-20260330f">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    .wish-container {
+      max-width: 900px;
+      margin: calc(var(--header-height) + 24px) auto 48px;
+      padding: 0 20px
+    }
+
+    .wish-hero {
+      text-align: center;
+      margin-bottom: 24px
+    }
+
+    .wish-list {
+      display: grid;
+      gap: 12px
+    }
+
+    .wish-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px;
+      border-radius: 10px;
+      background: var(--bg-card-solid, #fff);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06)
+    }
+
+    .wish-item .meta {
+      color: var(--text-medium, #666);
+      font-size: 14px
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--text-medium, #666);
+      padding: 40px
+    }
+
+    .remove-btn {
+      background: transparent;
+      border: 0;
+      color: #e53e3e;
+      font-size: 18px;
+      cursor: pointer
+    }
+
+    .remove-btn:hover {
+      opacity: 0.9
+    }
+
+    @media (max-width: 700px) {
+      .wish-container {
+        margin-top: calc(var(--header-height) + 18px);
+        padding: 0 14px;
+      }
+
+      .wish-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Naam<span class="logo-in">in</span></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-en="More" data-hi="More">
+          More<span class="arrow">▼</span>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="popular-names.html" data-en="Popular Names" data-hi="Popular Names">Popular Names</a></li>
+          <li><a href="unique-names.html" data-en="Unique Names" data-hi="Unique Names">Unique Names</a></li>
+          <li><a href="famous-personalities.html" data-en="Famous Personalities" data-hi="Famous Personalities">Famous
+              Personalities</a></li>
+          <li><a href="more/motto-for-everything/index.html" data-en="Motto Creator"
+              data-hi="Motto Creator">Motto Creator</a></li>
+          <li><a href="more/zodiac-finder/index.html" data-en="Zodiac Finder" data-hi="Zodiac Finder">Zodiac Finder</a>
+          </li>
+          <li><a href="product.html" data-en="Our Products" data-hi="Our Products">Our Products</a></li>
+
+          <li><a href="services.html" data-en="Services" data-hi="Services">Services</a></li>
+          <li><a href="careers.html" data-en="Careers" data-hi="Careers">Careers</a></li>
+          <li><a href="blog.html" data-en="Blog" data-hi="Blog">Blog</a></li>
+          <li><a href="contact.html" data-en="Contact" data-hi="Contact">Contact</a></li>
+
+        </ul>
+      </li>
+    </ul>
+    <div class="nav-actions">
+      <button id="fav-view-btn" class="btn btn-fav" title="Wishlist"><i class="fas fa-heart"></i> <span
+          id="fav-count">0</span></button>
+      <a href="login.html" class="btn btn-login">Log in</a>
+      <a href="signup.html" class="btn btn-signup">Sign up</a>
+    </div>
+  </nav>
+
+  <main class="wish-container">
+    <header class="wish-hero">
+      <h1>Your Shortlist</h1>
+      <p class="sub">Saved baby names for your family</p>
+    </header>
+
+    <section id="wishlist-section">
+      <div id="wish-list" class="wish-list"></div>
+      <div id="wish-empty" class="empty" style="display:none;">No names saved yet.</div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3 data-en="Quick Links" data-hi="Quick Links">Quick Links</h3><a href="index.html" data-en="Home"
+          data-hi="Home">Home</a><a href="about.html" data-en="About" data-hi="About">About</a><a
+          href="services.html" data-en="Services" data-hi="Services">Services</a><a href="contact.html" data-en="Contact"
+          data-hi="Contact">Contact</a>
+      </div>
+      <div>
+        <h3 data-en="Our Services" data-hi="Our Services">Our Services</h3><a href="services.html#consultation" data-en="Name Consultation"
+          data-hi="Name Consultation">Name Consultation</a><a href="services.html#vedic" data-en="Vedic Guidance"
+          data-hi="Vedic Guidance">Vedic Guidance</a><a href="services.html#posters" data-en="Our Products"
+          data-hi="Our Products">Our Products</a>
+      </div>
+      <div>
+        <h3 data-en="Follow Us" data-hi="Follow Us">Follow Us</h3>
+        <p><a href="https://www.linkedin.com/company/naamin/" target="_blank" rel="noopener">LinkedIn</a></p>
+        <p><a href="#" target="_blank" rel="noopener">Instagram</a></p>
+        <p><a href="#" target="_blank" rel="noopener">Facebook</a></p>
+      </div>
+      <div>
+        <h3 data-en="Contact" data-hi="Contact">Contact</h3>
+        <p><a href="tel:+919413678955">+91 94136 78955</a></p>
+        <p><a href="mailto:naamin.com@gmail.com">naamin.com@gmail.com</a></p>
+        <p data-en="Hyderabad, Telangana, India" data-hi="Hyderabad, Telangana, India">Hyderabad, Telangana, India
+        </p>
+      </div>
+    </div>
+    <p class="copyrights" data-en="© 2025 Naamin. All rights reserved." data-hi="© 2025 Naamin. All rights reserved.">
+      © 2025 Naamin. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (function () {
+      const storageKey = 'naamin_favorites_v1';
+      const listEl = document.getElementById('wish-list');
+      const emptyEl = document.getElementById('wish-empty');
+      const favCount = document.getElementById('fav-count');
+
+      function load() {
+        try { const raw = localStorage.getItem(storageKey); return raw ? JSON.parse(raw) : []; } catch (e) { return []; }
+      }
+
+      function save(arr) { localStorage.setItem(storageKey, JSON.stringify(arr)); updateBadge(arr.length); }
+
+      function updateBadge(n) { if (favCount) favCount.textContent = n; }
+
+      function render() {
+        const items = load();
+        listEl.innerHTML = '';
+        if (!items || items.length === 0) { emptyEl.style.display = 'block'; updateBadge(0); return; }
+        emptyEl.style.display = 'none'; updateBadge(items.length);
+
+        items.forEach((it) => {
+          const name = it.name || it.Name || 'Unnamed';
+          const meaning = it.meaning || it.Meaning || '';
+          const row = document.createElement('div'); row.className = 'wish-item';
+          row.innerHTML = `<div>
+        <strong>${name}</strong>
+        <div class="meta">${meaning}</div>
+      </div>
+      <div>
+        <button class="remove-btn" data-name="${encodeURIComponent(name)}" title="Remove"><i class="fas fa-trash"></i></button>
+      </div>`;
+          listEl.appendChild(row);
+        });
+
+        // attach remove handlers (remove by name to keep sequence correct)
+        listEl.querySelectorAll('.remove-btn').forEach(btn => {
+          btn.onclick = (e) => {
+            const encoded = btn.getAttribute('data-name') || '';
+            const name = decodeURIComponent(encoded);
+            let items = load();
+            const filtered = items.filter(it => (it.name || it.Name || '') !== name);
+            save(filtered);
+            render();
+          };
+        });
+      }
+
+      // clicking fav button in navbar goes back to this page
+      const favBtn = document.getElementById('fav-view-btn');
+      if (favBtn) favBtn.onclick = () => { window.location.href = 'wishlist.html'; };
+
+      // Dropdown toggle logic
+      document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const parent = toggle.parentElement;
+          parent.classList.toggle('open');
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        document.querySelectorAll('.dropdown.open').forEach(opened => {
+          if (!opened.contains(e.target)) {
+            opened.classList.remove('open');
+          }
+        });
+      });
+
+      render();
+    })();
+  </script>
+  <script src="hindi-transliterate.js"></script>
+  <script src="script.js?v=perf-20260331v" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" src="navbar-auth.js?v=navauth-20260330a"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

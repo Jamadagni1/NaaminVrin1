@@ -1,0 +1,55 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Wishlist / Favorites (React + Tailwind Demo)</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    @keyframes heart-pop {
+      0% {
+        transform: scale(1);
+      }
+
+      40% {
+        transform: scale(1.2);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .animate-heart-pop {
+      animation: heart-pop 220ms ease-out;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900">
+  <div id="root"></div>
+
+  <script type="text/babel" src="js/wishlist-react-demo.jsx"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
