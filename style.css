@@ -595,6 +595,16 @@ header {
     line-height: 1.1;
 }
 
+.btn-translate {
+    font-size: 12px;
+    padding: 7px 10px;
+    line-height: 1.1;
+}
+
+.btn-translate i {
+    font-size: 0.95rem;
+}
+
 .btn-login {
     background: transparent;
     border: 1.5px solid var(--border-color-light);
@@ -2137,12 +2147,14 @@ footer {
     will-change: transform;
 }
 
-#services .service-card.service-card-clickable {
+#services .service-card.service-card-clickable,
+#why-choose .service-card.service-card-clickable {
     cursor: pointer;
 }
 
-#services .service-card.service-card-clickable::after {
-    content: "Click to contact";
+#services .service-card.service-card-clickable::after,
+#why-choose .service-card.service-card-clickable::after {
+    content: "Tap to explore";
     display: inline-flex;
     margin-top: 14px;
     padding: 6px 12px;

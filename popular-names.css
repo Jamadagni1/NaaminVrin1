@@ -455,6 +455,13 @@
     }
 }
 
+/* Keep footer tone aligned with rest of site pages */
+body.more-unified-ui footer {
+    background: var(--text-dark);
+    border-top: 5px solid transparent;
+    border-image: var(--accent-gradient) 1;
+}
+
 @media (max-width: 480px) {
     #popular-names {
         padding: 78px 14px 28px;

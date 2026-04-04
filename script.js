@@ -2318,30 +2318,92 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    function setupTranslateQuickActions() {
+        const translateHref = `https://translate.google.com/translate?sl=auto&tl=hi&u=${encodeURIComponent(window.location.href)}`;
+
+        const attachTranslateBtn = (container, isMobile) => {
+            if (!container || container.querySelector('.btn-translate')) return;
+
+            const translateBtn = document.createElement('a');
+            translateBtn.href = translateHref;
+            translateBtn.target = '_blank';
+            translateBtn.rel = 'noopener noreferrer';
+            translateBtn.className = `btn btn-login btn-translate${isMobile ? ' mobile-btn' : ''}`;
+            translateBtn.setAttribute('data-en', 'Translate');
+            translateBtn.setAttribute('data-hi', 'Translate');
+            translateBtn.setAttribute('title', 'Translate this page');
+            translateBtn.setAttribute('aria-label', 'Translate this page');
+            translateBtn.innerHTML = '<i class="fas fa-language" aria-hidden="true"></i><span>Translate</span>';
+            container.insertBefore(translateBtn, container.firstChild);
+        };
+
+        attachTranslateBtn(document.querySelector('.nav-actions.desktop-only'), false);
+        attachTranslateBtn(document.querySelector('.mobile-actions'), true);
+    }
+
     function setupServicesCardRedirects() {
-        const serviceCards = document.querySelectorAll('#services .service-card');
+        const serviceCards = document.querySelectorAll('#services .service-card, #why-choose .service-card');
         if (!serviceCards.length) return;
+        const isInMore = window.location.pathname.includes("/more/");
+        const rootPrefix = isInMore ? "../../" : "";
+        const fallbackServicesHref = `${rootPrefix}services.html`;
+        const fallbackContactHref = `${rootPrefix}contact.html`;
+        const productsHref = `${rootPrefix}product.html`;
+        const reportHref = `${rootPrefix}name-report.html`;
+        const domainHref = `${rootPrefix}more/domain-name-creator/index.html`;
+        const mottoHref = `${rootPrefix}more/motto-for-everything/index.html`;
+        const popularNamesHref = `${rootPrefix}popular-names.html`;
 
         serviceCards.forEach(card => {
             card.classList.add('service-card-clickable');
             card.setAttribute('role', 'link');
             card.setAttribute('tabindex', '0');
 
-            const serviceTitle = (card.querySelector('h3')?.textContent || card.id || 'Service').trim();
-            const redirectToContact = () => {
-                const target = `contact.html?service=${encodeURIComponent(serviceTitle)}`;
-                window.location.href = target;
+            const titleEl = card.querySelector('h3');
+            const serviceTitle = (titleEl?.getAttribute('data-en') || titleEl?.textContent || card.id || 'Service').trim();
+            const normalizedTitle = serviceTitle.toLowerCase();
+            const routeToService = () => {
+                if (/(baby|family)/i.test(normalizedTitle)) {
+                    const openSearchBtn = document.getElementById('open-search-modal-btn');
+                    if (openSearchBtn) {
+                        openSearchBtn.click();
+                        return;
+                    }
+                    window.location.href = popularNamesHref;
+                    return;
+                }
+                if (/(our products?|products?|poster|announcement)/i.test(normalizedTitle)) {
+                    window.location.href = productsHref;
+                    return;
+                }
+                if (/(name report|report)/i.test(normalizedTitle)) {
+                    window.location.href = reportHref;
+                    return;
+                }
+                if (/(domain)/i.test(normalizedTitle)) {
+                    window.location.href = domainHref;
+                    return;
+                }
+                if (/(motto|tagline)/i.test(normalizedTitle)) {
+                    window.location.href = mottoHref;
+                    return;
+                }
+                if (/(startup|brand|company|institution|pronunciation)/i.test(normalizedTitle)) {
+                    window.location.href = fallbackServicesHref;
+                    return;
+                }
+                window.location.href = `${fallbackContactHref}?service=${encodeURIComponent(serviceTitle)}`;
             };
 
             card.addEventListener('click', (event) => {
                 if (event.target.closest('a, button, input, select, textarea')) return;
-                redirectToContact();
+                routeToService();
             });
 
             card.addEventListener('keydown', (event) => {
                 if (event.key !== 'Enter' && event.key !== ' ') return;
                 event.preventDefault();
-                redirectToContact();
+                routeToService();
             });
         });
     }
@@ -2384,6 +2446,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     applyPlatformNavUpdates();
+    setupTranslateQuickActions();
     setupAuthIntentRedirects();
     setupServicesCardRedirects();
     setupAnimatedCounters();

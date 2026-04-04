@@ -264,16 +264,13 @@
 
         /* Footer Styling */
         footer {
-            background: #333333;
-            /* Global text-dark color */
+            background: var(--text-dark);
             padding: 60px 40px 40px;
             margin-top: auto;
             border-top: 5px solid transparent;
-            border-image: linear-gradient(135deg, #BB6BD9, #8224E3) 1;
-            /* Match global accent gradient */
+            border-image: var(--accent-gradient) 1;
             text-align: center;
-            color: #a0a0a0;
-            /* Match global text-medium for dark bg */
+            color: rgba(255, 255, 255, 0.78);
             font-family: 'Poppins', sans-serif;
             position: relative;
             z-index: 10;
@@ -300,7 +297,7 @@
 
         .footer-grid a,
         .footer-grid p {
-            color: #cbd5e1;
+            color: rgba(255, 255, 255, 0.72);
             transition: all 0.3s ease;
             font-weight: 500;
             font-size: 1rem;
@@ -316,7 +313,7 @@
         }
 
         .copyrights {
-            color: #64748b;
+            color: rgba(255, 255, 255, 0.55);
             font-size: 0.9rem;
             margin-top: 40px;
         }
@@ -604,7 +601,6 @@
 </body>
 
 </html>
-
 
 
 
