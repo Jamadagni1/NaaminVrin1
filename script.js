@@ -1974,6 +1974,7 @@ document.addEventListener("DOMContentLoaded", () => {
         mobileMenuOverlay.className = 'mobile-menu-overlay';
         document.body.appendChild(mobileMenuOverlay);
     }
+    document.body.classList.remove("mobile-menu-open");
 
     if (topNavbar) {
         const syncNavbarState = () => {
@@ -1987,6 +1988,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function closeMobileMenu() {
         if (mobileMenu) mobileMenu.classList.remove("open");
         if (mobileMenuOverlay) mobileMenuOverlay.classList.remove("active");
+        document.body.classList.remove("mobile-menu-open");
         if (hamburger) {
             const icon = hamburger.querySelector('i');
             if (icon) icon.className = 'fas fa-bars';
@@ -1998,6 +2000,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function openMobileMenu() {
         if (mobileMenu) mobileMenu.classList.add("open");
         if (mobileMenuOverlay) mobileMenuOverlay.classList.add("active");
+        document.body.classList.add("mobile-menu-open");
         if (hamburger) {
             const icon = hamburger.querySelector('i');
             if (icon) icon.className = 'fas fa-times';
