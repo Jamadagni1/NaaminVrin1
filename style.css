@@ -1830,7 +1830,11 @@ footer {
     /* Navbar adjustments */
     .navbar {
         padding: 15px 20px;
-        position: relative;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1300 !important;
     }
 
     /* Hamburger button */
@@ -1863,7 +1867,7 @@ footer {
         -webkit-backdrop-filter: blur(20px);
         transform: translateX(100%);
         transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 1001;
+        z-index: 1301 !important;
         overflow-y: auto;
         box-shadow: -8px 0 32px rgba(108, 43, 217, 0.15);
         display: flex !important;
@@ -1887,7 +1891,7 @@ footer {
         bottom: 0;
         background: rgba(0, 0, 0, 0.4);
         backdrop-filter: blur(2px);
-        z-index: 1000;
+        z-index: 1200 !important;
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -5897,24 +5901,10 @@ iframe {
     }
 
     .mobile-menu-overlay {
-        background: rgba(24, 14, 47, 0.3) !important;
-        -webkit-backdrop-filter: blur(8px) saturate(120%) !important;
-        backdrop-filter: blur(8px) saturate(120%) !important;
-    }
-
-    body.mobile-menu-open main,
-    body.mobile-menu-open .layout-shell,
-    body.mobile-menu-open .layout-main,
-    body.mobile-menu-open footer {
-        filter: blur(2px);
-        transition: filter 0.25s ease;
-    }
-
-    body:not(.mobile-menu-open) main,
-    body:not(.mobile-menu-open) .layout-shell,
-    body:not(.mobile-menu-open) .layout-main,
-    body:not(.mobile-menu-open) footer {
-        transition: filter 0.25s ease;
+        background: rgba(24, 14, 47, 0.24) !important;
+        -webkit-backdrop-filter: blur(5px) saturate(115%) !important;
+        backdrop-filter: blur(5px) saturate(115%) !important;
+        z-index: 1200 !important;
     }
 }
 
