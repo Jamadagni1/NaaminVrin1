@@ -2321,29 +2321,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function setupTranslateQuickActions() {
-        const translateHref = `https://translate.google.com/translate?sl=auto&tl=hi&u=${encodeURIComponent(window.location.href)}`;
-
-        const attachTranslateBtn = (container, isMobile) => {
-            if (!container || container.querySelector('.btn-translate')) return;
-
-            const translateBtn = document.createElement('a');
-            translateBtn.href = translateHref;
-            translateBtn.target = '_blank';
-            translateBtn.rel = 'noopener noreferrer';
-            translateBtn.className = `btn btn-login btn-translate${isMobile ? ' mobile-btn' : ''}`;
-            translateBtn.setAttribute('data-en', 'Translate');
-            translateBtn.setAttribute('data-hi', 'Translate');
-            translateBtn.setAttribute('title', 'Translate this page');
-            translateBtn.setAttribute('aria-label', 'Translate this page');
-            translateBtn.innerHTML = '<i class="fas fa-language" aria-hidden="true"></i><span>Translate</span>';
-            container.insertBefore(translateBtn, container.firstChild);
-        };
-
-        attachTranslateBtn(document.querySelector('.nav-actions.desktop-only'), false);
-        attachTranslateBtn(document.querySelector('.mobile-actions'), true);
-    }
-
     function setupServicesCardRedirects() {
         const serviceCards = document.querySelectorAll('#services .service-card, #why-choose .service-card');
         if (!serviceCards.length) return;
@@ -2449,7 +2426,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     applyPlatformNavUpdates();
-    setupTranslateQuickActions();
     setupAuthIntentRedirects();
     setupServicesCardRedirects();
     setupAnimatedCounters();
