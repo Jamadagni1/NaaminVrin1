@@ -45,6 +45,13 @@ const GenderTheme = {
     }
 };
 
+const WIN1252_REVERSE_MAP = Object.freeze({
+    8364: 128, 8218: 130, 402: 131, 8222: 132, 8230: 133, 8224: 134, 8225: 135,
+    710: 136, 8240: 137, 352: 138, 8249: 139, 338: 140, 381: 142,
+    8216: 145, 8217: 146, 8220: 147, 8221: 148, 8226: 149, 8211: 150, 8212: 151,
+    732: 152, 8482: 153, 353: 154, 8250: 155, 339: 156, 382: 158, 376: 159
+});
+
 // Apply theme immediately (before DOMContentLoaded for faster rendering)
 GenderTheme.init();
 
@@ -457,7 +464,7 @@ function fallbackHindiCopy(englishText) {
     const clean = String(englishText).replace(/\s+/g, " ").trim();
     if (!clean) return "";
 
-    if (HI_FALLBACK_MAP[clean]) return HI_FALLBACK_MAP[clean];
+    if (HI_FALLBACK_MAP[clean]) return decodeHindiMojibake(HI_FALLBACK_MAP[clean]);
 
     let translated = clean;
     HI_FALLBACK_REPLACEMENTS.forEach(([from, to]) => {
@@ -468,7 +475,7 @@ function fallbackHindiCopy(englishText) {
         translated = translateWordsToHindi(clean);
     }
 
-    return translated;
+    return decodeHindiMojibake(translated);
 }
 
 function sanitizeFileToken(value) {
@@ -1034,14 +1041,19 @@ async function savePdfWithFilename(pdf, filename) {
 function decodeHindiMojibake(text) {
     if (!text) return text;
     const raw = String(text);
-    if (!/(?:à¤|à¥)/.test(raw)) return raw;
+    if (!/(?:à¤|à¥|Ã Â¤|Ã Â¥)/.test(raw)) return raw;
 
     try {
         const bytes = new Uint8Array(raw.length);
         for (let i = 0; i < raw.length; i++) {
             const code = raw.charCodeAt(i);
-            if (code > 255) return raw;
-            bytes[i] = code;
+            if (code <= 255) {
+                bytes[i] = code;
+                continue;
+            }
+            const mapped = WIN1252_REVERSE_MAP[code];
+            if (mapped === undefined) return raw;
+            bytes[i] = mapped;
         }
         const decoded = new TextDecoder('utf-8').decode(bytes);
         if (!decoded || decoded.includes('�')) return raw;
@@ -1061,7 +1073,7 @@ function repairHindiMojibake(root = document.body) {
         const parentTag = node.parentElement ? node.parentElement.tagName : '';
         if (!['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA'].includes(parentTag)) {
             const raw = node.nodeValue || '';
-            if (/(?:à¤|à¥)/.test(raw)) {
+            if (/(?:à¤|à¥|Ã Â¤|Ã Â¥)/.test(raw)) {
                 const fixed = decodeHindiMojibake(raw);
                 if (fixed && fixed !== raw) {
                     node.nodeValue = fixed;
@@ -2570,6 +2582,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         document.documentElement.lang = lang;
         localStorage.setItem("language", lang);
+        document.querySelectorAll("#language-toggle, #language-toggle-mobile").forEach((btn) => {
+            const label = lang === "hi" ? "हिं/ENG" : "ENG/हिं";
+            btn.textContent = label;
+            btn.setAttribute("aria-label", lang === "hi" ? "Switch to English" : "हिंदी में बदलें");
+            btn.setAttribute("title", lang === "hi" ? "Switch to English" : "Switch to Hindi");
+        });
         const translatableElements = document.querySelectorAll("[data-en]");
         translatableElements.forEach(el => {
             const preferredRaw = el.getAttribute(lang === "hi" ? "data-hi" : "data-en");

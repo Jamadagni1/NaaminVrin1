@@ -1,4 +1,9 @@
-import { isSupabaseConfigured, supabase } from "./supabase-config.js";
+import {
+  getSupabaseClient,
+  isSupabaseConfigured,
+  supabase,
+  waitForSupabaseClient
+} from "./supabase-config.js";
 
 const ADMIN_EMAILS = [
   // "admin@example.com"
@@ -23,6 +28,16 @@ const showMessage = (text, type = "info") => {
 };
 
 const isConfigPlaceholder = () => !isSupabaseConfigured();
+const getAuthClient = () => getSupabaseClient() || supabase || null;
+
+const setButtonBusy = (button, isBusy, busyLabel = "Please wait...") => {
+  if (!button) return;
+  if (!button.dataset.defaultLabel) {
+    button.dataset.defaultLabel = button.textContent || "";
+  }
+  button.disabled = isBusy;
+  button.textContent = isBusy ? busyLabel : (button.dataset.defaultLabel || "");
+};
 
 const normalizeRole = (email) => {
   if (!email) return "user";
@@ -194,6 +209,9 @@ const handleAuthError = (err) => {
       if (message.includes("provider is not enabled")) {
         return "Google sign-in is not enabled for this Supabase project.";
       }
+      if (message.includes("redirect_to") || message.includes("redirect uri") || message.includes("redirect_uri")) {
+        return "Google login redirect is not allowed. Add this page URL in Supabase Auth > URL Configuration.";
+      }
       if (message.includes("failed to fetch")) {
         return "Network error. Please check your connection and try again.";
       }
@@ -229,7 +247,19 @@ if (form) {
       return;
     }
 
+    const submitBtn = form.querySelector('button[type="submit"]');
+    setButtonBusy(submitBtn, true, mode === "signup" ? "Creating account..." : "Logging in...");
+
     try {
+      const authClient = getAuthClient() || (await waitForSupabaseClient());
+      if (!authClient?.auth) {
+        showMessage(
+          "Auth client could not start. Reload once and try again.",
+          "error"
+        );
+        return;
+      }
+
       if (mode === "signup") {
         const name = document.getElementById("signup-name")?.value?.trim() || "";
         const email = document.getElementById("signup-email")?.value?.trim() || "";
@@ -254,7 +284,7 @@ if (form) {
         }
 
         const role = normalizeRole(email);
-        const { data, error } = await supabase.auth.signUp({
+        const { data, error } = await authClient.auth.signUp({
           email,
           password,
           options: {
@@ -290,7 +320,7 @@ if (form) {
           return;
         }
 
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await authClient.auth.signInWithPassword({
           email,
           password
         });
@@ -302,6 +332,8 @@ if (form) {
       }
     } catch (err) {
       showMessage(handleAuthError(err), "error");
+    } finally {
+      setButtonBusy(submitBtn, false);
     }
   });
 }
@@ -319,28 +351,39 @@ if (googleBtn) {
       return;
     }
 
+    setButtonBusy(googleBtn, true, "Opening Google...");
+
     try {
+      const authClient = getAuthClient() || (await waitForSupabaseClient());
+      if (!authClient?.auth) {
+        showMessage(
+          "Auth client could not start. Reload once and try again.",
+          "error"
+        );
+        return;
+      }
+
       showMessage("Redirecting to Google...", "success");
       const redirectTo = getAuthReturnUrl();
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await authClient.auth.signInWithOAuth({
         provider: "google",
         options: {
           redirectTo,
           queryParams: {
             prompt: "select_account"
-          },
-          skipBrowserRedirect: true
+          }
         }
       });
       if (error) throw error;
 
-      if (!data?.url) {
-        throw new Error("Google sign-in could not be started.");
+      // supabase-js may auto-redirect on some versions, or return URL on others.
+      if (data?.url) {
+        window.location.assign(data.url);
       }
-
-      window.location.assign(data.url);
     } catch (err) {
       showMessage(handleAuthError(err), "error");
+    } finally {
+      setButtonBusy(googleBtn, false);
     }
   });
 }
@@ -365,17 +408,20 @@ if (isAuthScreen) {
 const logoutBtn = document.getElementById("logout-btn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", async () => {
-    if (isConfigPlaceholder() || !supabase?.auth) {
+    const authClient = getAuthClient() || (await waitForSupabaseClient());
+    if (isConfigPlaceholder() || !authClient?.auth) {
       window.location.href = USER_REDIRECT;
       return;
     }
-    await supabase.auth.signOut({ scope: "local" });
+    await authClient.auth.signOut({ scope: "local" });
     window.location.href = USER_REDIRECT;
   });
 }
 
 const syncAuthUi = async () => {
   if (isConfigPlaceholder()) return;
+  const authClient = getAuthClient() || (await waitForSupabaseClient());
+  if (!authClient?.auth) return;
 
   const hasCallbackParams = hasAuthCallbackParams();
   const authError = getUrlParam("error_description") || getUrlParam("error");
@@ -385,7 +431,7 @@ const syncAuthUi = async () => {
     return;
   }
 
-  const { data, error } = await supabase.auth.getSession();
+  const { data, error } = await authClient.auth.getSession();
   if (error) {
     if (isMissingSessionError(error)) {
       return;
@@ -418,8 +464,12 @@ const syncAuthUi = async () => {
   }
 };
 
-if (!isConfigPlaceholder() && supabase?.auth) {
-  supabase.auth.onAuthStateChange(async (_event, session) => {
+const initAuthListeners = async () => {
+  if (isConfigPlaceholder()) return;
+  const authClient = getAuthClient() || (await waitForSupabaseClient());
+  if (!authClient?.auth) return;
+
+  authClient.auth.onAuthStateChange(async (_event, session) => {
     const authGate = document.querySelector("[data-auth-gate]");
     if (session?.user && isAuthScreen && hasAuthCallbackParams()) {
       const role = await getUserRole(session.user);
@@ -440,4 +490,6 @@ if (!isConfigPlaceholder() && supabase?.auth) {
   });
 
   syncAuthUi();
-}
+};
+
+initAuthListeners();

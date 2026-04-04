@@ -1,4 +1,9 @@
-import { isSupabaseConfigured, supabase } from "./supabase-config.js";
+import {
+  getSupabaseClient,
+  isSupabaseConfigured,
+  supabase,
+  waitForSupabaseClient
+} from "./supabase-config.js";
 
 const ROOT_PREFIX = window.location.pathname.includes("/more/") ? "../../" : "";
 const PROFILE_PATH = `${ROOT_PREFIX}profile.html`;
@@ -6,7 +11,9 @@ const HOME_PATH = `${ROOT_PREFIX}index.html`;
 
 const DESKTOP_PROFILE_ID = "nav-profile-menu";
 const MOBILE_PROFILE_ID = "mobile-profile-menu";
-const AUTH_LINK_SELECTOR = '.btn-login[href*="login.html"], .btn-signup[href*="signup.html"]';
+const AUTH_LINK_SELECTOR = 'a[href*="login.html"], a[href*="signup.html"]';
+const AUTH_STORAGE_KEY = "naamin-authenticated";
+const getAuthClient = () => getSupabaseClient() || supabase || null;
 
 // Expose the active client for non-module scripts (e.g., report download guard).
 if (typeof window !== "undefined" && supabase) {
@@ -105,8 +112,9 @@ const wireSignOut = () => {
     button.addEventListener("click", async (event) => {
       event.preventDefault();
       try {
-        if (supabase?.auth) {
-          await supabase.auth.signOut({ scope: "local" });
+        const authClient = getAuthClient() || (await waitForSupabaseClient());
+        if (authClient?.auth) {
+          await authClient.auth.signOut({ scope: "local" });
         }
       } finally {
         window.location.href = HOME_PATH;
@@ -117,7 +125,7 @@ const wireSignOut = () => {
 
 const setLoggedOutUi = () => {
   try {
-    localStorage.removeItem("naamin-authenticated");
+    localStorage.removeItem(AUTH_STORAGE_KEY);
   } catch (_e) {
     // ignore storage edge cases
   }
@@ -135,7 +143,7 @@ const setLoggedOutUi = () => {
 
 const setLoggedInUi = (user) => {
   try {
-    localStorage.setItem("naamin-authenticated", "true");
+    localStorage.setItem(AUTH_STORAGE_KEY, "true");
   } catch (_e) {
     // ignore storage edge cases
   }
@@ -166,9 +174,31 @@ const setLoggedInUi = (user) => {
 };
 
 const syncNavbarAuth = async () => {
-  if (!isSupabaseConfigured()) return;
+  if (!isSupabaseConfigured()) {
+    setLoggedOutUi();
+    return;
+  }
+
+  const authClient = getAuthClient() || (await waitForSupabaseClient());
+  if (!authClient?.auth) {
+    // Fallback: keep nav consistent while client script finishes loading.
+    try {
+      if (localStorage.getItem(AUTH_STORAGE_KEY) === "true") {
+        setLoggedInUi({});
+        return;
+      }
+    } catch (_e) {
+      // ignore storage edge cases
+    }
+    setLoggedOutUi();
+    return;
+  }
+
   try {
-    const { data, error } = await supabase.auth.getSession();
+    if (typeof window !== "undefined") {
+      window.__naaminSupabaseClient = authClient;
+    }
+    const { data, error } = await authClient.auth.getSession();
     if (error || !data?.session?.user) {
       setLoggedOutUi();
       return;
@@ -184,12 +214,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!isSupabaseConfigured()) return;
 
-  supabase.auth.onAuthStateChange((_event, session) => {
-    if (session?.user) {
-      setLoggedInUi(session.user);
-      return;
-    }
+  const startListener = async () => {
+    const authClient = getAuthClient() || (await waitForSupabaseClient());
+    if (!authClient?.auth) return;
 
-    setLoggedOutUi();
-  });
+    authClient.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) {
+        setLoggedInUi(session.user);
+        return;
+      }
+
+      setLoggedOutUi();
+    });
+  };
+
+  startListener();
 });
