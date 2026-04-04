@@ -2470,6 +2470,10 @@ footer {
     /* हेडर की ऊंचाई के लिए अतिरिक्त मार्जिन */
 }
 
+#video-gallery {
+    scroll-margin-top: 100px;
+}
+
 /* ओवरले कंटेनर - इसे स्क्रीन के ऊपर फिक्स करता है */
 #coming-soon-overlay {
     position: absolute;
