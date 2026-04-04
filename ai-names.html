@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <script>
+    (() => {
+      const preferredLang = localStorage.getItem("language") || "en";
+      document.documentElement.lang = preferredLang;
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Name Generator | Naamin</title>
   <meta name="description" content="Generate unlimited Indian baby names instantly with AI. Filter by gender, theme, and style." />
@@ -9,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="style.css?v=ai-names-1" />
+  <link rel="stylesheet" href="style.css?v=ui-20260330f" />
   <style>
     /* ── Page Layout ── */
     .ai-page-wrap {
@@ -378,54 +384,69 @@
 </head>
 <body class="home-page" data-theme="light">
 
-  <!-- Navbar -->
   <nav class="navbar">
-    <a href="index.html" class="logo">Naam<span class="logo-in">in</span></a>
+    <div class="logo">Naam<span class="logo-in">in</span></div>
     <ul class="nav-links desktop-only">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="popular-names.html">Popular Names</a></li>
-      <li><a href="unique-names.html">Unique Names</a></li>
-      <li><a href="parents-mix.html">Parents to Child</a></li>
+      <li><a href="index.html" data-en="Home" data-hi="Home">Home</a></li>
+      <li><a href="about.html" data-en="About" data-hi="About">About</a></li>
+      <li><a href="parents-mix.html" data-en="Parents to Child" data-hi="Parents to Child">Parents to Child</a></li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle">More<span class="arrow">&#9662;</span></a>
+        <a href="#" class="dropdown-toggle" data-en="More" data-hi="More">More<span class="arrow">&#9662;</span></a>
         <ul class="dropdown-menu">
-          <li><a href="famous-personalities.html">Famous Personalities</a></li>
-          <li><a href="more/motto-for-everything/index.html">Motto Creator</a></li>
-          <li><a href="more/zodiac-finder/index.html">Zodiac Finder</a></li>
-          <li><a href="name-report.html">Name Report</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="popular-names.html" data-en="Popular Names" data-hi="Popular Names">Popular Names</a></li>
+          <li><a href="unique-names.html" data-en="Unique Names" data-hi="Unique Names">Unique Names</a></li>
+          <li><a href="famous-personalities.html" data-en="Famous Personalities" data-hi="Famous Personalities">Famous Personalities</a></li>
+          <li><a href="more/motto-for-everything/index.html" data-en="Motto Creator" data-hi="Motto Creator">Motto Creator</a></li>
+          <li><a href="more/zodiac-finder/index.html" data-en="Zodiac Finder" data-hi="Zodiac Finder">Zodiac Finder</a></li>
+          <li><a href="product.html" data-en="Our Products" data-hi="Our Products">Our Products</a></li>
+          <li><a href="services.html" data-en="Services" data-hi="Services">Services</a></li>
+          <li><a href="careers.html" data-en="Careers" data-hi="Careers">Careers</a></li>
+          <li><a href="blog.html" data-en="Blog" data-hi="Blog">Blog</a></li>
+          <li><a href="contact.html" data-en="Contact" data-hi="Contact">Contact</a></li>
         </ul>
       </li>
     </ul>
     <div class="nav-actions desktop-only">
+      <button id="language-toggle" class="btn btn-login btn-lang" title="Toggle language">ENG/HIN</button>
+      <button id="fav-view-btn" class="btn btn-fav" title="Wishlist">
+        <i class="fas fa-heart"></i>
+        <span id="fav-count">0</span>
+      </button>
       <a href="login.html" class="btn btn-login">Log in</a>
       <a href="signup.html" class="btn btn-signup">Sign up</a>
+    </div>
+    <div class="mobile-header-actions mobile-only">
+      <button id="fav-view-btn-mobile" class="btn btn-fav mobile-btn" aria-label="Shortlist">
+        <i class="fas fa-heart"></i>
+        <span id="fav-count-mobile">0</span>
+      </button>
     </div>
     <button class="hamburger-menu mobile-only" id="hamburger-menu" aria-label="Toggle menu">
       <i class="fas fa-bars"></i>
     </button>
     <div class="mobile-menu" id="mobile-menu">
       <ul class="mobile-nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="popular-names.html">Popular Names</a></li>
-        <li><a href="unique-names.html">Unique Names</a></li>
-        <li><a href="parents-mix.html">Parents to Child</a></li>
+        <li><a href="index.html" data-en="Home" data-hi="Home">Home</a></li>
+        <li><a href="about.html" data-en="About" data-hi="About">About</a></li>
+        <li><a href="parents-mix.html" data-en="Parents to Child" data-hi="Parents to Child">Parents to Child</a></li>
         <li class="mobile-dropdown">
-          <a href="#" class="mobile-dropdown-toggle">More<span class="arrow">&#9662;</span></a>
+          <a href="#" class="mobile-dropdown-toggle" data-en="More" data-hi="More">More<span class="arrow">&#9662;</span></a>
           <ul class="mobile-dropdown-menu">
-            <li><a href="famous-personalities.html">Famous Personalities</a></li>
-            <li><a href="more/motto-for-everything/index.html">Motto Creator</a></li>
-            <li><a href="more/zodiac-finder/index.html">Zodiac Finder</a></li>
-            <li><a href="name-report.html">Name Report</a></li>
-            <li><a href="services.html">Services</a></li>
-            <li><a href="blog.html">Blog</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="popular-names.html" data-en="Popular Names" data-hi="Popular Names">Popular Names</a></li>
+            <li><a href="unique-names.html" data-en="Unique Names" data-hi="Unique Names">Unique Names</a></li>
+            <li><a href="famous-personalities.html" data-en="Famous Personalities" data-hi="Famous Personalities">Famous Personalities</a></li>
+            <li><a href="more/motto-for-everything/index.html" data-en="Motto Creator" data-hi="Motto Creator">Motto Creator</a></li>
+            <li><a href="more/zodiac-finder/index.html" data-en="Zodiac Finder" data-hi="Zodiac Finder">Zodiac Finder</a></li>
+            <li><a href="product.html" data-en="Our Products" data-hi="Our Products">Our Products</a></li>
+            <li><a href="services.html" data-en="Services" data-hi="Services">Services</a></li>
+            <li><a href="careers.html" data-en="Careers" data-hi="Careers">Careers</a></li>
+            <li><a href="blog.html" data-en="Blog" data-hi="Blog">Blog</a></li>
+            <li><a href="contact.html" data-en="Contact" data-hi="Contact">Contact</a></li>
           </ul>
         </li>
       </ul>
       <div class="mobile-actions">
+        <button id="language-toggle-mobile" class="btn mobile-btn">ENG/HIN</button>
         <a href="login.html" class="btn btn-login mobile-btn">Log in</a>
         <a href="signup.html" class="btn btn-signup mobile-btn">Sign up</a>
       </div>
@@ -500,6 +521,36 @@
     </div>
 
   </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3 data-en="Quick Links" data-hi="Quick Links">Quick Links</h3><a href="index.html" data-en="Home" data-hi="Home">Home</a><a href="about.html" data-en="About" data-hi="About">About</a><a href="services.html" data-en="Services" data-hi="Services">Services</a><a href="contact.html" data-en="Contact" data-hi="Contact">Contact</a>
+      </div>
+      <div>
+        <h3 data-en="Our Services" data-hi="Our Services">Our Services</h3><a href="services.html#consultation" data-en="Name Consultation" data-hi="Name Consultation">Name Consultation</a><a href="services.html#vedic" data-en="Vedic Guidance" data-hi="Vedic Guidance">Vedic Guidance</a><a href="services.html#posters" data-en="Our Products" data-hi="Our Products">Our Products</a>
+      </div>
+      <div>
+        <h3 data-en="Follow Us" data-hi="Follow Us">Follow Us</h3>
+        <p><a href="https://www.linkedin.com/company/naamin/" target="_blank" rel="noopener">LinkedIn</a></p>
+        <p><a href="#" target="_blank" rel="noopener">Instagram</a></p>
+        <p><a href="#" target="_blank" rel="noopener">Facebook</a></p>
+      </div>
+      <div>
+        <h3 data-en="Contact" data-hi="Contact">Contact</h3>
+        <p><a href="tel:+919413678955">+91 94136 78955</a></p>
+        <p><a href="mailto:naamin.com@gmail.com">naamin.com@gmail.com</a></p>
+        <p data-en="Hyderabad, Telangana, India" data-hi="Hyderabad, Telangana, India">Hyderabad, Telangana, India</p>
+      </div>
+    </div>
+    <p class="copyrights" data-en="© 2025 Naamin. All rights reserved."
+      data-hi="© 2025 Naamin. All rights reserved.">© 2025 Naamin. All rights reserved.</p>
+  </footer>
+
+  <a href="https://wa.me/9413678955?text=Hello" class="whatsapp-float" target="_blank">
+    <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
+  </a>
+  <button id="scrollToTopBtn" class="scroll-to-top-btn" aria-label="Scroll to top"><i class="fas fa-arrow-up"></i></button>
 
   <!-- Copy Toast -->
   <div class="ai-copy-toast" id="ai-copy-toast">Copied to clipboard!</div>
@@ -664,44 +715,10 @@
       genBtn.addEventListener('click', generate);
       promptInput.addEventListener('keypress', e => { if (e.key === 'Enter') generate(); });
 
-      // ── Mobile menu
-      const hamburger = document.getElementById('hamburger-menu');
-      const mobileMenu = document.getElementById('mobile-menu');
-      let overlay = document.createElement('div');
-      overlay.className = 'mobile-menu-overlay';
-      document.body.appendChild(overlay);
-
-      function closeMobileMenu() {
-        mobileMenu.classList.remove('open');
-        overlay.classList.remove('active');
-        hamburger.querySelector('i').className = 'fas fa-bars';
-        document.body.style.overflow = '';
-      }
-      function openMobileMenu() {
-        mobileMenu.classList.add('open');
-        overlay.classList.add('active');
-        hamburger.querySelector('i').className = 'fas fa-times';
-        document.body.style.overflow = 'hidden';
-      }
-      hamburger.addEventListener('click', e => {
-        e.stopPropagation();
-        mobileMenu.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
-      });
-      overlay.addEventListener('click', closeMobileMenu);
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
-
-      // Mobile dropdown
-      const mobileDropToggle = document.querySelector('.mobile-dropdown-toggle');
-      const mobileDrop       = document.querySelector('.mobile-dropdown');
-      if (mobileDropToggle && mobileDrop) {
-        mobileDropToggle.addEventListener('click', e => {
-          e.preventDefault();
-          e.stopPropagation();
-          mobileDrop.classList.toggle('open');
-        });
-      }
     })();
   </script>
+  <script src="script.js?v=perf-20260331v" defer></script>
+  <script src="navbar_fix.js?v=capture_fix"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script type="module" src="navbar-auth.js?v=navauth-20260404a"></script>
 </body>

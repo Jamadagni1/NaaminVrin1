@@ -76,38 +76,69 @@
 
   <nav class="navbar">
     <div class="logo">Naam<span class="logo-in">in</span></div>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-
+    <ul class="nav-links desktop-only">
+      <li><a href="index.html" data-en="Home" data-hi="Home">Home</a></li>
+      <li><a href="about.html" data-en="About" data-hi="About">About</a></li>
+      <li><a href="parents-mix.html" data-en="Parents to Child" data-hi="Parents to Child">Parents to Child</a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-en="More" data-hi="More">
-          More<span class="arrow">▼</span>
+          More<span class="arrow">&#9662;</span>
         </a>
         <ul class="dropdown-menu">
           <li><a href="popular-names.html" data-en="Popular Names" data-hi="Popular Names">Popular Names</a></li>
           <li><a href="unique-names.html" data-en="Unique Names" data-hi="Unique Names">Unique Names</a></li>
-          <li><a href="famous-personalities.html" data-en="Famous Personalities" data-hi="Famous Personalities">Famous
-              Personalities</a></li>
-          <li><a href="more/motto-for-everything/index.html" data-en="Motto Creator"
-              data-hi="Motto Creator">Motto Creator</a></li>
-          <li><a href="more/zodiac-finder/index.html" data-en="Zodiac Finder" data-hi="Zodiac Finder">Zodiac Finder</a>
-          </li>
+          <li><a href="famous-personalities.html" data-en="Famous Personalities" data-hi="Famous Personalities">Famous Personalities</a></li>
+          <li><a href="more/motto-for-everything/index.html" data-en="Motto Creator" data-hi="Motto Creator">Motto Creator</a></li>
+          <li><a href="more/zodiac-finder/index.html" data-en="Zodiac Finder" data-hi="Zodiac Finder">Zodiac Finder</a></li>
           <li><a href="product.html" data-en="Our Products" data-hi="Our Products">Our Products</a></li>
-
           <li><a href="services.html" data-en="Services" data-hi="Services">Services</a></li>
           <li><a href="careers.html" data-en="Careers" data-hi="Careers">Careers</a></li>
           <li><a href="blog.html" data-en="Blog" data-hi="Blog">Blog</a></li>
           <li><a href="contact.html" data-en="Contact" data-hi="Contact">Contact</a></li>
-
         </ul>
       </li>
     </ul>
-    <div class="nav-actions">
-      <button id="fav-view-btn" class="btn btn-fav" title="Wishlist"><i class="fas fa-heart"></i> <span
-          id="fav-count">0</span></button>
+    <div class="nav-actions desktop-only">
+      <button id="language-toggle" class="btn btn-login btn-lang" title="Toggle language">ENG/HIN</button>
+      <button id="fav-view-btn" class="btn btn-fav" title="Wishlist"><i class="fas fa-heart"></i> <span id="fav-count">0</span></button>
       <a href="login.html" class="btn btn-login">Log in</a>
       <a href="signup.html" class="btn btn-signup">Sign up</a>
+    </div>
+    <div class="mobile-header-actions mobile-only">
+      <button id="fav-view-btn-mobile" class="btn btn-fav mobile-btn" aria-label="Shortlist">
+        <i class="fas fa-heart"></i>
+        <span id="fav-count-mobile">0</span>
+      </button>
+    </div>
+    <button class="hamburger-menu mobile-only" id="hamburger-menu" aria-label="Toggle menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul class="mobile-nav-links">
+        <li><a href="index.html" data-en="Home" data-hi="Home">Home</a></li>
+        <li><a href="about.html" data-en="About" data-hi="About">About</a></li>
+        <li><a href="parents-mix.html" data-en="Parents to Child" data-hi="Parents to Child">Parents to Child</a></li>
+        <li class="mobile-dropdown">
+          <a href="#" class="mobile-dropdown-toggle" data-en="More" data-hi="More">More<span class="arrow">&#9662;</span></a>
+          <ul class="mobile-dropdown-menu">
+            <li><a href="popular-names.html" data-en="Popular Names" data-hi="Popular Names">Popular Names</a></li>
+            <li><a href="unique-names.html" data-en="Unique Names" data-hi="Unique Names">Unique Names</a></li>
+            <li><a href="famous-personalities.html" data-en="Famous Personalities" data-hi="Famous Personalities">Famous Personalities</a></li>
+            <li><a href="more/motto-for-everything/index.html" data-en="Motto Creator" data-hi="Motto Creator">Motto Creator</a></li>
+            <li><a href="more/zodiac-finder/index.html" data-en="Zodiac Finder" data-hi="Zodiac Finder">Zodiac Finder</a></li>
+            <li><a href="product.html" data-en="Our Products" data-hi="Our Products">Our Products</a></li>
+            <li><a href="services.html" data-en="Services" data-hi="Services">Services</a></li>
+            <li><a href="careers.html" data-en="Careers" data-hi="Careers">Careers</a></li>
+            <li><a href="blog.html" data-en="Blog" data-hi="Blog">Blog</a></li>
+            <li><a href="contact.html" data-en="Contact" data-hi="Contact">Contact</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="mobile-actions">
+        <button id="language-toggle-mobile" class="btn mobile-btn">ENG/HIN</button>
+        <a href="login.html" class="btn btn-login mobile-btn">Log in</a>
+        <a href="signup.html" class="btn btn-signup mobile-btn">Sign up</a>
+      </div>
     </div>
   </nav>
 
@@ -236,7 +267,6 @@
 </body>
 
 </html>
-
 
 
 
