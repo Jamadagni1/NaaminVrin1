@@ -25,14 +25,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="style.css?v=ui-20260330f">
     <link rel="stylesheet" href="parents-mix-theme.css?v=2026012621">
-
-    <link rel="stylesheet" href="/assets/home-quick-button.css" />
 </head>
 
 <body data-theme="light">
 
     <nav class="navbar">
+        <div class="nav-brand-cluster">
+        <a href="/index.html" class="navbar-back-home" aria-label="Back to home">
+            <span class="navbar-back-icon" aria-hidden="true">&larr;</span>
+            <span class="navbar-back-label">Home</span>
+        </a>
         <div class="logo">Naam<span class="logo-in">in</span></div>
+    </div>
 
         <ul class="nav-links desktop-only">
             <li><a href="index.html" data-en="Home" data-hi="Home">Home</a></li>
@@ -253,11 +257,10 @@
     <script src="parents-mix.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script type="module" src="navbar-auth.js?v=navauth-20260330a"></script>
-
-    <a href="/index.html" class="home-quick-btn" aria-label="Back to home">Home</a>
 </body>
 
 </html>
+
 
 
 

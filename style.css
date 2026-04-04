@@ -425,6 +425,50 @@ header {
     font-weight: 900
 }
 
+.nav-brand-cluster {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.navbar-back-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(108, 43, 217, 0.28);
+    background: rgba(108, 43, 217, 0.08);
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    line-height: 1;
+    transition: var(--transition-smooth);
+    white-space: nowrap;
+}
+
+.navbar-back-home:hover {
+    background: rgba(108, 43, 217, 0.14);
+    transform: translateY(-1px);
+}
+
+.navbar-back-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+@media (max-width: 1024px) {
+    .navbar-back-home {
+        padding: 8px 10px;
+    }
+
+    .navbar-back-label {
+        display: none;
+    }
+}
+
 .navbar .nav-links {
     list-style: none;
     display: flex;
