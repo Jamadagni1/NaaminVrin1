@@ -1366,7 +1366,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const isHindiUI = (document.documentElement.lang || 'en') === 'hi';
         const hintLink = document.createElement('a');
         hintLink.className = 'hero-scroll-hint';
-        hintLink.href = '#name-finder';
+        hintLink.href = '#';
+        hintLink.setAttribute('data-open-search-modal', 'true');
+        hintLink.setAttribute('aria-haspopup', 'dialog');
         hintLink.setAttribute('data-en', hintTextEn);
         hintLink.setAttribute('data-hi', hintTextHi);
         hintLink.innerHTML = `${isHindiUI ? hintTextHi : hintTextEn} <i class="fas fa-arrow-down" aria-hidden="true"></i>`;
@@ -1393,13 +1395,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const videoCards = document.querySelectorAll('.video-card');
     if (!videoCards.length) return;
-
-    const curatedVideos = [
-        { src: 'assets/baby-name-hero.mp4', poster: 'IMG1.jpeg', title: 'Brand Naming Spotlight' },
-        { src: 'assets/hero.mp4', poster: 'IMG2.jpeg', title: 'Baby Name Stories' },
-        { src: 'assets/baby-name-hero.mp4', poster: 'IMG3.jpeg', title: 'Domains & Mottos' },
-        { src: 'assets/hero.mp4', poster: 'IMG4.jpeg', title: 'Institutional Naming' }
-    ];
 
     let lightbox = document.getElementById('video-lightbox');
     if (!lightbox) {
@@ -1452,13 +1447,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    videoCards.forEach((card, cardIndex) => {
+    videoCards.forEach((card) => {
         const videoEl = card.querySelector('video');
-        const preferredVideo = curatedVideos[cardIndex % curatedVideos.length];
         const title =
             card.dataset.videoTitle ||
             card.querySelector('.video-card-title')?.textContent?.trim() ||
-            preferredVideo.title ||
             'Naamin Video';
         let expandBtn = card.querySelector('.video-expand-btn');
 
@@ -1476,19 +1469,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (videoEl) {
-            if (preferredVideo.poster) {
-                videoEl.setAttribute('poster', preferredVideo.poster);
-            }
             videoEl.setAttribute('preload', 'metadata');
-
-            const sourceEl = videoEl.querySelector('source');
-            if (sourceEl) {
-                const existingSrc = sourceEl.getAttribute('src') || '';
-                if (existingSrc !== preferredVideo.src) {
-                    sourceEl.setAttribute('src', preferredVideo.src);
-                    videoEl.load();
-                }
-            }
             card.dataset.videoTitle = title;
 
             videoEl.addEventListener('click', (event) => {
@@ -3929,7 +3910,6 @@ updateBabyCarouselLanguage();
 (function() {
     // Search Modal
     const searchModalOverlay = document.getElementById('search-modal-overlay');
-    const openSearchBtn = document.getElementById('open-search-modal-btn');
     const closeSearchBtn = document.getElementById('close-search-modal');
     const modalSearchInput = document.getElementById('modal-name-search');
     const modalSearchBtn = document.getElementById('modal-search-btn');
@@ -3938,7 +3918,6 @@ updateBabyCarouselLanguage();
     
     // Report Modal
     const reportModalOverlay = document.getElementById('report-modal-overlay');
-    const openReportBtn = document.getElementById('open-report-modal-btn');
     const closeReportBtn = document.getElementById('close-report-modal');
     const reportNameInput = document.getElementById('report-name-input');
     const reportDobInput = document.getElementById('report-dob-input');
@@ -4033,13 +4012,22 @@ updateBabyCarouselLanguage();
         }
     }
 
-    // Wire up search modal
-    if (openSearchBtn && searchModalOverlay) {
-        openSearchBtn.addEventListener('click', () => {
-            loadNamesForSearch();
-            openModal(searchModalOverlay);
+    function wireModalTrigger(selector, overlay, beforeOpen) {
+        if (!overlay) return;
+        document.addEventListener('click', (event) => {
+            const trigger = event.target.closest(selector);
+            if (!trigger) return;
+            event.preventDefault();
+            if (typeof beforeOpen === 'function') {
+                beforeOpen();
+            }
+            openModal(overlay);
         });
     }
+
+    // Wire modal triggers from home buttons/links
+    wireModalTrigger('#open-search-modal-btn, [data-open-search-modal="true"]', searchModalOverlay, loadNamesForSearch);
+    wireModalTrigger('#open-report-modal-btn, [data-open-report-modal="true"]', reportModalOverlay);
 
     if (closeSearchBtn && searchModalOverlay) {
         closeSearchBtn.addEventListener('click', () => closeModal(searchModalOverlay));
@@ -4078,11 +4066,6 @@ updateBabyCarouselLanguage();
             }
         });
     });
-
-    // Wire up report modal
-    if (openReportBtn && reportModalOverlay) {
-        openReportBtn.addEventListener('click', () => openModal(reportModalOverlay));
-    }
 
     if (closeReportBtn && reportModalOverlay) {
         closeReportBtn.addEventListener('click', () => closeModal(reportModalOverlay));
