@@ -3,7 +3,7 @@ import {
   isSupabaseConfigured,
   supabase,
   waitForSupabaseClient
-} from "./supabase-config.js";
+} from "./supabase-config.js?v=sb-20260404b";
 
 const ROOT_PREFIX = window.location.pathname.includes("/more/") ? "../../" : "";
 const PROFILE_PATH = `${ROOT_PREFIX}profile.html`;

@@ -1,9 +1,10 @@
 import {
+  SUPABASE_URL,
   getSupabaseClient,
   isSupabaseConfigured,
   supabase,
   waitForSupabaseClient
-} from "./supabase-config.js";
+} from "./supabase-config.js?v=sb-20260404b";
 
 const ADMIN_EMAILS = [
   // "admin@example.com"
@@ -29,6 +30,10 @@ const showMessage = (text, type = "info") => {
 
 const isConfigPlaceholder = () => !isSupabaseConfigured();
 const getAuthClient = () => getSupabaseClient() || supabase || null;
+const buildGoogleAuthorizeUrl = () => {
+  const redirectTo = encodeURIComponent(getAuthReturnUrl());
+  return `${SUPABASE_URL}/auth/v1/authorize?provider=google&redirect_to=${redirectTo}`;
+};
 
 const setButtonBusy = (button, isBusy, busyLabel = "Please wait...") => {
   if (!button) return;
@@ -356,10 +361,8 @@ if (googleBtn) {
     try {
       const authClient = getAuthClient() || (await waitForSupabaseClient());
       if (!authClient?.auth) {
-        showMessage(
-          "Auth client could not start. Reload once and try again.",
-          "error"
-        );
+        showMessage("Opening Google sign-in...", "success");
+        window.location.assign(buildGoogleAuthorizeUrl());
         return;
       }
 
@@ -379,9 +382,19 @@ if (googleBtn) {
       // supabase-js may auto-redirect on some versions, or return URL on others.
       if (data?.url) {
         window.location.assign(data.url);
+        return;
       }
+
+      // If SDK didn't redirect and no URL returned, force direct authorize URL.
+      window.location.assign(buildGoogleAuthorizeUrl());
     } catch (err) {
-      showMessage(handleAuthError(err), "error");
+      const friendly = handleAuthError(err);
+      showMessage(friendly, "error");
+
+      // Last-resort fallback for flaky SDK/cached bundles.
+      window.setTimeout(() => {
+        window.location.assign(buildGoogleAuthorizeUrl());
+      }, 500);
     } finally {
       setButtonBusy(googleBtn, false);
     }

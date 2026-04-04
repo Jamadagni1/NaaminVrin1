@@ -40,7 +40,7 @@ const isSupabaseConfigured = () => {
 
 const supabase = getSupabaseClient();
 
-const waitForSupabaseClient = async (timeoutMs = 4000) => {
+const waitForSupabaseClient = async (timeoutMs = 15000) => {
   const startedAt = Date.now();
   let client = getSupabaseClient();
   if (client) return client;
