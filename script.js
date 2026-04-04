@@ -2130,7 +2130,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Language Handling
     function getLanguage() {
-        return localStorage.getItem("language") || "en";
+        try {
+            localStorage.setItem("language", "en");
+        } catch (_e) {
+            // ignore storage edge cases
+        }
+        return "en";
     }
 
     function isAuthPagePath(pathname = "") {
@@ -2470,6 +2475,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function updateContent(lang) {
+        lang = "en";
         console.log("Script.js: updateContent called with lang:", lang);
 
         const WIN1252_REVERSE = {
@@ -2606,10 +2612,8 @@ document.addEventListener("DOMContentLoaded", () => {
         document.documentElement.lang = lang;
         localStorage.setItem("language", lang);
         document.querySelectorAll("#language-toggle, #language-toggle-mobile").forEach((btn) => {
-            const label = lang === "hi" ? "हिं/ENG" : "ENG/हिं";
-            btn.textContent = label;
-            btn.setAttribute("aria-label", lang === "hi" ? "Switch to English" : "हिंदी में बदलें");
-            btn.setAttribute("title", lang === "hi" ? "Switch to English" : "Switch to Hindi");
+            btn.style.display = "none";
+            btn.setAttribute("aria-hidden", "true");
         });
         const translatableElements = document.querySelectorAll("[data-en]");
         translatableElements.forEach(el => {
@@ -2671,23 +2675,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const langBtn = document.getElementById("language-toggle");
     if (langBtn) {
         langBtn.addEventListener('click', () => {
-            const newLang = getLanguage() === "hi" ? "en" : "hi";
-            updateContent(newLang);
+            updateContent("en");
         });
     }
 
     const langBtnMobile = document.getElementById("language-toggle-mobile");
     if (langBtnMobile) {
         langBtnMobile.addEventListener('click', () => {
-            const newLang = getLanguage() === "hi" ? "en" : "hi";
-            updateContent(newLang);
+            updateContent("en");
         });
     }
 
     snapshotOriginalLanguageState(document.body);
     ensureLanguageMutationObserver();
     repairHindiMojibake();
-    updateContent(getLanguage());
+    updateContent("en");
 
     // --- Aura Plan Click Logic ---
     const pricingSection = document.querySelector('.pricing-grid');

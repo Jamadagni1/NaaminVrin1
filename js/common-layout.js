@@ -1,4 +1,11 @@
 ﻿(function () {
+    try {
+        localStorage.setItem("language", "en");
+    } catch (_e) {
+        // ignore storage edge cases
+    }
+    document.documentElement.lang = "en";
+
     const COMMON_HEADER_HTML = `
 <nav class="navbar">
     <div class="nav-brand-cluster">
@@ -33,7 +40,6 @@
     </ul>
 
     <div class="nav-actions desktop-only">
-        <button id="language-toggle" class="btn btn-login btn-lang" title="Toggle language">ENG/HIN</button>
         <button id="fav-view-btn" class="btn btn-fav" title="Wishlist">
             <i class="fas fa-heart"></i>
             <span id="fav-count">0</span>
@@ -78,7 +84,6 @@
         </ul>
 
         <div class="mobile-actions">
-            <button id="language-toggle-mobile" class="btn mobile-btn">ENG/HIN</button>
             <a href="/login.html" class="btn btn-login mobile-btn">Log in</a>
             <a href="/signup.html" class="btn btn-signup mobile-btn">Sign up</a>
         </div>
@@ -190,3 +195,4 @@
         applyCommonLayout();
     }
 })();
+

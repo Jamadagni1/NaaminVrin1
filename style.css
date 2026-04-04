@@ -639,6 +639,12 @@ header {
     line-height: 1.1;
 }
 
+#language-toggle,
+#language-toggle-mobile,
+.btn-lang {
+    display: none !important;
+}
+
 .btn-translate {
     font-size: 12px;
     padding: 7px 10px;
